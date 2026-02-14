@@ -51,6 +51,20 @@ void handleTouch(VPADTouchData touch) {
       touched = 0;
     }
   }
+  else if (mouse_mode == MOUSE_MODE_TOUCHSCREEN) {
+    if (touch.touched) {
+      if (!touched) {
+        LiSendTouchEvent(LI_TOUCH_EVENT_DOWN, 0, (float) touch.x / TOUCH_WIDTH, (float) touch.y / TOUCH_HEIGHT, 0.0, 0.0, 0.0, 0.0);
+        touched = 1;
+      } else {
+        LiSendTouchEvent(LI_TOUCH_EVENT_MOVE, 0, (float) touch.x / TOUCH_WIDTH, (float) touch.y / TOUCH_HEIGHT, 0.0, 0.0, 0.0, 0.0);
+      }
+    }
+    else if (touched) {
+      LiSendTouchEvent(LI_TOUCH_EVENT_UP, 0, (float) touch.x / TOUCH_WIDTH, (float) touch.y / TOUCH_HEIGHT, 0.0, 0.0, 0.0, 0.0);
+      touched = 0;
+    }
+  }
   else {
     // Just pressed (run this twice to allow touch position to settle)
     if (lastTouched < 2 && touch.touched) {

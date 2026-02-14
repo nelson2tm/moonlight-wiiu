@@ -279,6 +279,8 @@ static void parse_argument(int c, char* value, PCONFIGURATION config) {
       mouse_mode = MOUSE_MODE_RELATIVE;
     else if (strcasecmp(value, "absolute") == 0)
       mouse_mode = MOUSE_MODE_ABSOLUTE;
+    else if (strcasecmp(value, "touchscreen") == 0)
+      mouse_mode = MOUSE_MODE_TOUCHSCREEN;
     break;
 #endif
   case '4':
