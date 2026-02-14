@@ -1,3 +1,4 @@
+#include "../config.h"
 #include "wiiu.h"
 
 #include <malloc.h>
@@ -13,7 +14,7 @@
 
 int disable_gamepad = 0;
 int swap_buttons = 0;
-int absolute_positioning = 0;
+mouse_modes mouse_mode = MOUSE_MODE_RELATIVE;
 
 static char lastTouched = 0;
 static char touched = 0;
@@ -36,7 +37,7 @@ static OSAlarm inputAlarm;
 #define INPUT_UPDATE_RATE OSMillisecondsToTicks(16)
 
 void handleTouch(VPADTouchData touch) {
-  if (absolute_positioning) {
+  if (mouse_mode == MOUSE_MODE_ABSOLUTE) {
     if (touch.touched) {
       LiSendMousePositionEvent(touch.x, touch.y, TOUCH_WIDTH, TOUCH_HEIGHT);
 
